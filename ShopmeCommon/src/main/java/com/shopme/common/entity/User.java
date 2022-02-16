@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.persistence.JoinColumn;
 
 @Entity
@@ -124,6 +125,13 @@ public class User {
 	
 	public void addRole(Role role) {
 		this.roles.add(role);
+	}
+	
+	@Transient
+	public String getPhotosImagePath() {
+		if (id == null || photos == null) return "/images/default-image.png";
+		
+		return "/user-photos/" + this.id + "/" + this.photos;
 	}
 	
 }
