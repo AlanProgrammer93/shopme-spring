@@ -18,6 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.shopme.admin.FileUploadUtil;
 import com.shopme.common.entity.Category;
+import com.shopme.common.exception.CategoryNotFoundException;
 
 public class CategoryController {
 	@Autowired
