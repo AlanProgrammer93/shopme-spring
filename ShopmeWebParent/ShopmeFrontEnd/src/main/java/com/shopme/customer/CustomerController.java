@@ -8,6 +8,7 @@ import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
@@ -73,6 +74,12 @@ public class CustomerController {
 		
 		mailSender.send(message);
 		
+	}
+	
+	@GetMapping("/verify")
+	public String verifyAccount(@Param("code") String code, Model model) {
+		boolean verified = customerService.verify(code);
 		
+		return "register/" + (verified ? "verify_success" : "verify_fail");
 	}
 }
