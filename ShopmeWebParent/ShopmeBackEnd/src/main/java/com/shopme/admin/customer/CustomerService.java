@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.shopme.admin.setting.country.CountryRepository;
+import com.shopme.common.entity.AuthenticationType;
 import com.shopme.common.entity.Country;
 import com.shopme.common.entity.Customer;
 import com.shopme.common.exception.CustomerNotFoundException;
@@ -66,13 +67,22 @@ public class CustomerService {
 	}
 	
 	public void save(Customer customerInForm) {
-		if (!customerInForm.getPassword().isEmpty()) {
-			String encodedPassword = passwordEncoder.encode(customerInForm.getPassword());
-			customerInForm.setPassword(encodedPassword);
-		} else {
-			Customer customerInDB = customerRepo.findById(customerInForm.getId()).get();
-			customerInForm.setPassword(customerInDB.getPassword());
+		Customer customerInDB = customerRepo.findById(customerInForm.getId()).get();
+		
+		if (customerInDB.getAuthenticationType().equals(AuthenticationType.DATABASE)) {
+			if (!customerInForm.getPassword().isEmpty()) {
+				String encodedPassword = passwordEncoder.encode(customerInForm.getPassword());
+				customerInForm.setPassword(encodedPassword);
+			} else {
+				customerInForm.setPassword(customerInDB.getPassword());
+			}
 		}
+		
+		customerInForm.setEnabled(customerInDB.isEnabled());
+		customerInForm.setCreatedTime(customerInDB.getCreatedTime());
+		customerInForm.setVerificationCode(customerInDB.getVerificationCode());
+		customerInForm.setAuthenticationType(customerInDB.getAuthenticationType());
+		customerInForm.setResetPasswordToken(customerInDB.getResetPasswordToken());
 		
 		customerRepo.save(customerInForm);
 	}
@@ -85,4 +95,5 @@ public class CustomerService {
 		
 		customerRepo.deleteById(id);
 	}
+	
 }
