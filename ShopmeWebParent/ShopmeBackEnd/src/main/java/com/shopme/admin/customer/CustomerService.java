@@ -67,15 +67,8 @@ public class CustomerService {
 	}
 	
 	public void save(Customer customerInForm) {
-		Customer customerInDB = customerRepo.findById(customerInForm.getId()).get();
+Customer customerInDB = customerRepo.findById(customerInForm.getId()).get();
 		
-<<<<<<< HEAD
-		if (!customerInForm.getPassword().isEmpty()) {
-			String encodedPassword = passwordEncoder.encode(customerInForm.getPassword());
-			customerInForm.setPassword(encodedPassword);
-		} else {
-			customerInForm.setPassword(customerInDB.getPassword());
-=======
 		if (customerInDB.getAuthenticationType().equals(AuthenticationType.DATABASE)) {
 			if (!customerInForm.getPassword().isEmpty()) {
 				String encodedPassword = passwordEncoder.encode(customerInForm.getPassword());
@@ -83,17 +76,13 @@ public class CustomerService {
 			} else {
 				customerInForm.setPassword(customerInDB.getPassword());
 			}
->>>>>>> 62f0ac3f0880beb8d3d94d877605024cae0cdd84
 		}
 		
 		customerInForm.setEnabled(customerInDB.isEnabled());
 		customerInForm.setCreatedTime(customerInDB.getCreatedTime());
 		customerInForm.setVerificationCode(customerInDB.getVerificationCode());
-<<<<<<< HEAD
-=======
 		customerInForm.setAuthenticationType(customerInDB.getAuthenticationType());
 		customerInForm.setResetPasswordToken(customerInDB.getResetPasswordToken());
->>>>>>> 62f0ac3f0880beb8d3d94d877605024cae0cdd84
 		
 		customerRepo.save(customerInForm);
 	}
