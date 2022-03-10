@@ -8,6 +8,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
@@ -33,6 +35,7 @@ import com.shopme.common.entity.ProductImage;
 import com.shopme.common.exception.ProductNotFoundException;
 
 @Controller
+@Transactional
 public class ProductController {
 	@Autowired
 	private ProductService productService;

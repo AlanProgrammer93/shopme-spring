@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +18,7 @@ import com.shopme.common.exception.CategoryNotFoundException;
 import com.shopme.common.exception.ProductNotFoundException;
 
 @Controller
+@Transactional
 public class ProductController {
 	@Autowired private ProductService productService;
 	@Autowired private CategoryService categoryService;

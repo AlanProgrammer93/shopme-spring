@@ -67,7 +67,7 @@ public class CustomerService {
 	}
 	
 	public void save(Customer customerInForm) {
-Customer customerInDB = customerRepo.findById(customerInForm.getId()).get();
+		Customer customerInDB = customerRepo.findById(customerInForm.getId()).get();
 		
 		if (customerInDB.getAuthenticationType().equals(AuthenticationType.DATABASE)) {
 			if (!customerInForm.getPassword().isEmpty()) {

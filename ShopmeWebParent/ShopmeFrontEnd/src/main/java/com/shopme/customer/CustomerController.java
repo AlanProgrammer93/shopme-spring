@@ -12,6 +12,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,6 +25,7 @@ import com.shopme.setting.EmailSettingBag;
 import com.shopme.setting.SettingService;
 
 @Controller
+@Transactional
 public class CustomerController {
 
 	@Autowired private CustomerService customerService;
